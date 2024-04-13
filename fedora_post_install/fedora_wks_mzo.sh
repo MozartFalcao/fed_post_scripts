@@ -7,9 +7,10 @@ max_parallel_downloads=10
 countme=false
 " | sudo tee -a /etc/dnf/dnf.conf
 
+clear
 # Prompt Bluetooth
-echo "Do you want bluetooth? [y/n]"
-read -r bluetooth
+#echo "Do you want bluetooth? [y/n]"
+#read -r bluetooth
 
 # Setup RPMFusion
 sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
@@ -59,9 +60,11 @@ echo "Iniciating all apps installation..."
 
 flatpak install -y flathub com.brave.Browser org.mozilla.Thunderbird ch.protonmail.protonmail-bridge org.gnome.Calculator org.gnome.Calendar org.gnome.Maps org.gnome.World.PikaBackup org.signal.Signal network.loki.Session org.keepassxc.KeePassXC com.protonvpn.www 
 
+echo "flatpak foi agora os brabo começa..."
+
 
 #BRAVE
-sudo dnf install dnf-plugins-core
+sudo dnf install -y dnf-plugins-core
 
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
 
@@ -69,12 +72,15 @@ sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
 sudo dnf install -y brave-browser 
 
+echo "brave foi..."
+
+
 #Chrome
 sudo dnf install -y fedora-workstation-repositories 
 
-sudo dnf config-manager --set-enabled google-chrome
+sudo dnf config-manager --set-enabled google-chrome -y
 
-sudo dnf -y install google-chrome-stable
+sudo dnf install google-chrome-stable -y
 
 #VsCode
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -84,6 +90,8 @@ dnf check-update
 
 
 #install from dnf
+echo "outro brabo agora..."
+
 sudo dnf install -y lpf-spotify-client code zsh firefox steam-devices neovim sqlite3 zsh-autosuggestions zsh-syntax-highlighting setroubleshoot newsboat ffmpeg compat-ffmpeg4 akmod-v4l2loopback yt-dlp guestfs-tools distrobox podman distrobox hugo simple-scan --best --allowerasing
 lpf update
 
