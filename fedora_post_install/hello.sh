@@ -32,5 +32,3 @@ echo '
                                       
    --- Made by IceWhale with YOU ---
 '
-
-`echo "<Hello World>"` 
