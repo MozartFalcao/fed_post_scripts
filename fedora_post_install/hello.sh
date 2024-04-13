@@ -32,3 +32,4 @@ echo '
                                       
    --- Made by IceWhale with YOU ---
 '
+echo 'hello man from github' 
