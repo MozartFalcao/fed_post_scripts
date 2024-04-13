@@ -95,14 +95,14 @@ echo "outro brabo agora..."
 sudo dnf install -y lpf-spotify-client code zsh firefox steam-devices neovim sqlite3 zsh-autosuggestions zsh-syntax-highlighting setroubleshoot newsboat ffmpeg compat-ffmpeg4 akmod-v4l2loopback yt-dlp guestfs-tools distrobox podman distrobox hugo simple-scan --best --allowerasing
 lpf update
 
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo  dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install vlc -y
+sudo dnf install python-vlc (optional)
 
 
 sudo yum install -y terminator
 
-# Making Zsh as Default Shell in Fedora
-grep tecmint /etc/passwd
-$ chsh -s $(which zsh)
-$ grep tecmint /etc/passwd
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
