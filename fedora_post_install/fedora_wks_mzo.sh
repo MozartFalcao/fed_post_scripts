@@ -1,5 +1,18 @@
 #!/bin/sh
 
+
+#Functions to look cool
+print_green() {
+	echo -e "\e[1;30;42m$1\e[0m"
+}
+
+print_blue() {
+	echo -e "\e[1;30;44m$1\e[0m"
+}
+
+
+
+
 # Configure dnf (In order: automatically select fastest mirror, parallel downloads, and disable telemetry)
 # fastestmirror=1
 printf "%s" "
@@ -49,28 +62,32 @@ sudo fedora-third-party enable
 sudo fedora-third-party refresh
 flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
+sudo dnf install -y flatpak
+sudo dnf install wget -y
+
+
 # Install things I need, top is uncategorized
 echo "Iniciating all apps installation..."
+print_green "\n Iniciating all apps installation...\n"
 
-# # Install Beta version of GIMP. It performs better than the stable one, plus better Wayland support.
-# flatpak install -y flathub-beta org.gimp.GIMP
-# sudo dnf install -y steam-devices neovim sqlite3 zsh-autosuggestions zsh-syntax-highlighting setroubleshoot newsboat ffmpeg compat-ffmpeg4 akmod-v4l2loopback yt-dlp @virtualization guestfs-tools distrobox podman distrobox hugo simple-scan --best --allowerasing
-# sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+flatpak install -y flathub 
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.spotify.Client
 
 
-flatpak install -y flathub com.brave.Browser org.mozilla.Thunderbird ch.protonmail.protonmail-bridge org.gnome.Calculator org.gnome.Calendar org.gnome.Maps org.gnome.World.PikaBackup org.signal.Signal network.loki.Session org.keepassxc.KeePassXC com.protonvpn.www 
+
 
 echo "flatpak foi agora os brabo começa..."
 
 
 #BRAVE
-sudo dnf install -y dnf-plugins-core
+sudo dnf install dnf-plugins-core -y
 
-sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo -y
 
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
-sudo dnf install -y brave-browser 
+sudo dnf install brave-browser -y
 
 echo "brave foi..."
 
@@ -84,27 +101,34 @@ sudo dnf install google-chrome-stable -y
 
 #VsCode
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-dnf check-update
+dnf check-update -y
+sudo dnf install code -y
+sudo dnf install dotnet-sdk-8.0 -y
+sudo dnf install aspnetcore-runtime-8.0 -y
+sudo dnf install dotnet-sdk-6.0 -y
+sudo dnf install aspnetcore-runtime-6.0 -y
+
+sudo dnf install -y nodejs npm
+sudo npm install -g nvm
+sudo npm install -g n 
+sudo npm install -g n 
+sudo npm install -g @angular/cli  
+
+ng version 
 
 
-#install from dnf
-echo "outro brabo agora..."
-
-sudo dnf install -y lpf-spotify-client code zsh firefox steam-devices neovim sqlite3 zsh-autosuggestions zsh-syntax-highlighting setroubleshoot newsboat ffmpeg compat-ffmpeg4 akmod-v4l2loopback yt-dlp guestfs-tools distrobox podman distrobox hugo simple-scan --best --allowerasing
-lpf update
-
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo  dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf install vlc -y
-sudo dnf install python-vlc (optional)
 
 
 sudo yum install -y terminator
 
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+
+
+print_green "\n install zsh...\n"
 
 
 
@@ -112,7 +136,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 sudo dnf autoremove -y
 
 
-
+print_green "\n now some internal configs...\n"
 
 
 # Initialize virtualization
@@ -185,15 +209,15 @@ sudo hostnamectl hostname "localhost"
 
 # Disable Bluetooth
 # or renable it!
-case "$bluetooth" in
-	y|Y)
-		sudo sed -i 's,install bluetooth /bin/disabled-bluetooth-by-security-misc,#install bluetooth /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
-		sudo sed -i 's,install btusb /bin/disabled-bluetooth-by-security-misc,#install btusb /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
-		;;
-	*)
-		echo "Disabling Bluetooth..."
-		sudo systemctl disable bluetooth
-esac
+# case "$bluetooth" in
+# 	y|Y)
+# 		sudo sed -i 's,install bluetooth /bin/disabled-bluetooth-by-security-misc,#install bluetooth /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
+# 		sudo sed -i 's,install btusb /bin/disabled-bluetooth-by-security-misc,#install btusb /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
+# 		;;
+# 	*)
+# 		echo "Disabling Bluetooth..."
+# 		sudo systemctl disable bluetooth
+# esac
  
 # Enable DNSSEC
 # causes severe network instability, but working on getting this up and running
@@ -212,4 +236,31 @@ chmod 700 /home/"$(whoami)"
 sudo sed -i 's,kernel.yama.ptrace_scope=2,#kernel.yama.ptrace_scope=2,g' /etc/sysctl.d/30_security-misc.conf
 
 
-echo "The configuration is now complete."
+########################
+####Install personal things ####
+########################
+print_green "\nInstalling personal things\n"
+
+
+##configure environment
+git config --global user.name "MozartFalcao"
+git config --global user.email mozart.falcao@outlook.com
+
+
+cd "$HOME" || return
+
+
+mkdir wks .temp .themes
+cd "wks" || return
+mkdir repos labs studies projects works scripts
+cd "repos" || return
+git clone https://github.com/MozartFalcao/scripts.git
+git clone https://github.com/MozartFalcao/fed_post_scripts.git
+git clone https://github.com/bikass/kora.git "$HOME"/.local/share/icons/
+
+cd "$HOME" || return
+
+
+
+
+echo "The configuration is now complete...."
