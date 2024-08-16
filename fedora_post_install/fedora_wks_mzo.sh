@@ -256,11 +256,11 @@ clear
 ########################
 print_green "\nInstalling personal things\n"
 
-cd $HOME/Downloads || return
+cd ~/Downloads || return
 wget https://github.com/dracula/gtk/archive/master.zip
 
-mkdir $HOME/.themes || return
-unzip master.zip -d $HOME/.themes
+mkdir ~/.themes || return
+unzip master.zip -d ~/.themes
 
 gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
 gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
@@ -273,12 +273,12 @@ git clone https://github.com/bikass/kora.git "$HOME/.icons"
 # git config --global user.email mozart.falcao@outlook.com
 
 
-cd $HOME || return
+cd ~ || return
 mkdir wks .temp .themes
 cd wks || return
 mkdir repos labs studies projects works scripts
 cd repos || return
-cd $HOME || return
+cd ~/ || return
 
 sudo dnf upgrade -y
 sudo dnf autoremove -y
