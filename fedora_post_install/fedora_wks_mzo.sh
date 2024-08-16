@@ -248,8 +248,8 @@ wget https://github.com/dracula/gtk/archive/master.zip
 mkdir "$HOME/.themes" || return
 unzip master.zip -d "$HOME/.themes" 
 
-gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
-gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
 
 git clone https://github.com/bikass/kora.git "$HOME/.icons"
 
