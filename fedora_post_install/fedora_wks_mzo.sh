@@ -80,15 +80,16 @@ clear
 echo "Iniciating all apps installation..."
 print_green "\n Iniciating all apps installation...\n"
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub com.spotify.Client -y
+# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak install flathub com.spotify.Client -y
 
 
 echo "flatpak foi agora os brabo começa..."
-print_green "\n flatpak foi agora os brabo começa....\n"
+
 
 
 #BRAVE
+print_green "\n BRAVVE !! \n"
 sudo dnf install dnf-plugins-core -y
 
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo -y
@@ -97,10 +98,11 @@ sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
 sudo dnf install brave-browser -y
 
-echo "brave foi..."
+print_green "\n brave foi... \n" 
 
 
 #Chrome
+print_green "\n cHROME !! \n"
 sudo dnf install -y fedora-workstation-repositories 
 
 sudo dnf config-manager --set-enabled google-chrome -y
