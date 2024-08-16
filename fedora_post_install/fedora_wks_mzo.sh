@@ -254,21 +254,21 @@ sudo sed -i 's,kernel.yama.ptrace_scope=2,#kernel.yama.ptrace_scope=2,g' /etc/sy
 ########################
 print_green "\nInstalling personal things\n"
 
-cd "$HOME/Downloads" || return
-wget https://github.com/dracula/gtk/archive/master.zip
+# cd "$HOME/Downloads" || return
+# wget https://github.com/dracula/gtk/archive/master.zip
 
-mkdir "$HOME/.themes" || return
-unzip master.zip -d "$HOME/.themes" 
+# mkdir "$HOME/.themes" || return
+# unzip master.zip -d "$HOME/.themes" 
 
-gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
-gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
+# gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
+# gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
 
-git clone https://github.com/bikass/kora.git "$HOME/.icons"
+# git clone https://github.com/bikass/kora.git "$HOME/.icons"
 
 
 ##configure environment
-git config --global user.name "MozartFalcao"
-git config --global user.email mozart.falcao@outlook.com
+# git config --global user.name "MozartFalcao"
+# git config --global user.email mozart.falcao@outlook.com
 
 
 cd "$HOME" || return
