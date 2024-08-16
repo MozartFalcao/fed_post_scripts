@@ -26,29 +26,29 @@ clear
 #read -r bluetooth
 
 # Setup RPMFusion
-sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
-sudo dnf groupupdate core -y
+# sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm
+# sudo dnf groupupdate core -y
 
 
-# echo 'Make sure your system has been fully-updated by running "sudo dnf upgrade -y" and reboot it once.'
-sudo dnf upgrade -y
+# # echo 'Make sure your system has been fully-updated by running "sudo dnf upgrade -y" and reboot it once.'
+# sudo dnf upgrade -y
 
-#Setting umask to 077
-# No one except wheel user and root get read/write files
-umask 077
-sudo sed -i 's/umask 022/umask 077/g' /etc/bashrc
+# #Setting umask to 077
+# # No one except wheel user and root get read/write files
+# umask 077
+# sudo sed -i 's/umask 022/umask 077/g' /etc/bashrc
 
-# Debloat
-sudo dnf remove -y anaconda* \
-	# Extra Firmware
-	zd1211-firmware atmel-firmware libertas-usb8388-firmware abrt* anthy-unicode avahi bluez-cups brasero-libs trousers alsa-sof-firmware boost-date-time yelp orca fedora-bookmarks fedora-chromium-config mailcap open-vm-tools samba-client unbound-libs podman yajl mediawriter nano nano-default-editor sane* perl* thermald NetworkManager-ssh sos kpartx dos2unix sssd cyrus-sasl-plain geolite2* traceroute gnome-themes-extra ModemManager tcpdump mozilla-filesystem nmap-ncat spice-vdagent eog gnome-text-editorevince cheese gnome-classic-session baobab gnome-calculator gnome-characters gnome-system-monitor gnome-font-viewer gnome-font-viewer simple-scan evince-djvu gnome-tour gnome-shell-extension* gnome-weather gnome-boxes gnome-clocks gnome-contacts gnome-tour gnome-logs gnome-remote-desktop totem gnome-calendar gnome-shell-extension-background-logo gnome-maps gnome-backgrounds gnome-software gnome-connections gnome-user-docs gnome-color-manager perl-IO-Socket-SSL adcli mtr realmd teamd vpnc openconnect openvpn ppp pptp qgnomeplatform rsync xorg-x11-drv-vmware hyperv* virtualbox-guest-additions qemu-guest-agent 
+# # Debloat
+# sudo dnf remove -y anaconda* \
+# 	# Extra Firmware
+# 	zd1211-firmware atmel-firmware libertas-usb8388-firmware abrt* anthy-unicode avahi bluez-cups brasero-libs trousers alsa-sof-firmware boost-date-time yelp orca fedora-bookmarks fedora-chromium-config mailcap open-vm-tools samba-client unbound-libs podman yajl mediawriter nano nano-default-editor sane* perl* thermald NetworkManager-ssh sos kpartx dos2unix sssd cyrus-sasl-plain geolite2* traceroute gnome-themes-extra ModemManager tcpdump mozilla-filesystem nmap-ncat spice-vdagent eog gnome-text-editorevince cheese gnome-classic-session baobab gnome-calculator gnome-characters gnome-system-monitor gnome-font-viewer gnome-font-viewer simple-scan evince-djvu gnome-tour gnome-shell-extension* gnome-weather gnome-boxes gnome-clocks gnome-contacts gnome-tour gnome-logs gnome-remote-desktop totem gnome-calendar gnome-shell-extension-background-logo gnome-maps gnome-backgrounds gnome-software gnome-connections gnome-user-docs gnome-color-manager perl-IO-Socket-SSL adcli mtr realmd teamd vpnc openconnect openvpn ppp pptp qgnomeplatform rsync xorg-x11-drv-vmware hyperv* virtualbox-guest-additions qemu-guest-agent 
 
-# Run Updates
-sudo dnf autoremove -y
-sudo fwupdmgr get-devices
-sudo fwupdmgr refresh --force
-sudo fwupdmgr get-updates -y
-sudo fwupdmgr update -y
+# # Run Updates
+# sudo dnf autoremove -y
+# sudo fwupdmgr get-devices
+# sudo fwupdmgr refresh --force
+# sudo fwupdmgr get-updates -y
+# sudo fwupdmgr update -y
 
 # # Configure GNOME
 # gsettings set org.gnome.desktop.a11y always-show-universal-access-status true
@@ -58,28 +58,30 @@ sudo fwupdmgr update -y
 # gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 
 
-print_green "\n acabou os updates....\n"
+# print_green "\n acabou os updates....\n"
 
 
 # Setup Flathub beta and third party packages
-sudo fedora-third-party enable
-sudo fedora-third-party refresh
-flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
+# sudo fedora-third-party enable
+# sudo fedora-third-party refresh
+# flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
-sudo dnf install -y flatpak
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# sudo dnf install -y flatpak
+# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 
-sudo dnf install -y snapd 
-sudo ln -s /var/lib/snapd/snap /snap
-sudo dnf install -y wget 
+# sudo dnf install -y snapd 
+# sudo ln -s /var/lib/snapd/snap /snap
+# sudo dnf install -y wget 
 
 
 
 # Install things I need, top is uncategorized
 echo "Iniciating all apps installation..."
 print_green "\n Iniciating all apps installation...\n"
-sudo dnf install lpf-spotify-client
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.spotify.Client -y
 
 
 echo "flatpak foi agora os brabo começa..."
