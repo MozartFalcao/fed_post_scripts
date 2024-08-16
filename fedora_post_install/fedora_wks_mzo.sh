@@ -63,7 +63,10 @@ sudo fedora-third-party refresh
 flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
 sudo dnf install -y flatpak
-sudo dnf install wget -y
+sudo dnf install -y snapd 
+sudo ln -s /var/lib/snapd/snap /snap
+sudo dnf install -y wget 
+
 
 
 # Install things I need, top is uncategorized
@@ -78,6 +81,7 @@ flatpak install flathub com.spotify.Client
 
 
 echo "flatpak foi agora os brabo começa..."
+print_green "\n flatpak foi agora os brabo começa....\n"
 
 
 #BRAVE
@@ -99,6 +103,10 @@ sudo dnf config-manager --set-enabled google-chrome -y
 
 sudo dnf install google-chrome-stable -y
 
+sudo snap install bitwarden -y
+
+sudo dnf install gnome-tweaks -y
+
 #VsCode
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
@@ -117,21 +125,14 @@ sudo npm install -g n
 sudo npm install -g @angular/cli  
 
 ng version 
-
-
-
-
 sudo yum install -y terminator
-
 
 sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
 sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 
 print_green "\n install zsh...\n"
-
-
-
+curl -fsSL https://raw.githubusercontent.com/MozartFalcao/fed_post_scripts/develop/fedora_post_install/zsh-install.sh | sudo bash
 
 sudo dnf autoremove -y
 
@@ -241,6 +242,17 @@ sudo sed -i 's,kernel.yama.ptrace_scope=2,#kernel.yama.ptrace_scope=2,g' /etc/sy
 ########################
 print_green "\nInstalling personal things\n"
 
+cd "$HOME/Downloads" || return
+wget https://github.com/dracula/gtk/archive/master.zip
+
+mkdir "$HOME/.themes" || return
+unzip master.zip -d "$HOME/.themes" 
+
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+
+git clone https://github.com/bikass/kora.git "$HOME/.icons"
+
 
 ##configure environment
 git config --global user.name "MozartFalcao"
@@ -248,8 +260,6 @@ git config --global user.email mozart.falcao@outlook.com
 
 
 cd "$HOME" || return
-
-
 mkdir wks .temp .themes
 cd "wks" || return
 mkdir repos labs studies projects works scripts
@@ -262,5 +272,4 @@ cd "$HOME" || return
 
 
 
-
-echo "The configuration is now complete...."
+print "The configuration is now complete...."
