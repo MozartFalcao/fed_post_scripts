@@ -256,16 +256,16 @@ clear
 ########################
 print_green "\nInstalling personal things\n"
 
-cd ~/Downloads || return
+cd ~/Downloads 
 wget https://github.com/dracula/gtk/archive/master.zip
 
-mkdir ~/.themes || return
+mkdir ~/.themes 
 unzip master.zip -d ~/.themes
 
-gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
-gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula" 
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula" 
 
-git clone https://github.com/bikass/kora.git "$HOME/.icons"
+git clone https://github.com/bikass/kora.git "~/.icons"
 
 
 ##configure environment
@@ -273,12 +273,12 @@ git clone https://github.com/bikass/kora.git "$HOME/.icons"
 # git config --global user.email mozart.falcao@outlook.com
 
 
-cd ~ || return
+cd ~/ 
 mkdir wks .temp .themes
-cd wks || return
+cd wks 
 mkdir repos labs studies projects works scripts
-cd repos || return
-cd ~/ || return
+cd repos 
+cd ~/ 
 
 sudo dnf upgrade -y
 sudo dnf autoremove -y
