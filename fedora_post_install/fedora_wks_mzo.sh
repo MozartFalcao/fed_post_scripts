@@ -77,178 +77,178 @@ clear
 
 
 # Install things I need, top is uncategorized
-echo "Iniciating all apps installation..."
-print_green "\n Iniciating all apps installation...\n"
+# echo "Iniciating all apps installation..."
+# print_green "\n Iniciating all apps installation...\n"
 
-# flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-# flatpak install flathub com.spotify.Client -y
+# # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# # flatpak install flathub com.spotify.Client -y
+# sleep 3
 
-
-echo "flatpak foi agora os brabo começa..."
-
-
-
-#BRAVE
-print_green "\n BRAVVE !! \n"
-sudo dnf install dnf-plugins-core -y
-
-sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo -y
-
-sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
-sudo dnf install brave-browser -y
-
-print_green "\n brave foi... \n" 
+# echo "flatpak foi agora os brabo começa..."
 
 
-#Chrome
-print_green "\n cHROME !! \n"
-sudo dnf install -y fedora-workstation-repositories 
 
-sudo dnf config-manager --set-enabled google-chrome -y
+# #BRAVE
+# print_green "\n BRAVVE !! \n"
+# sudo dnf install dnf-plugins-core -y
 
-sudo dnf install google-chrome-stable -y
+# sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo -y
 
-sudo dnf install gnome-tweaks -y
+# sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
-sudo snap install bitwarden -y
-sudo snap install mailspring -y
-sudo snap install nextcloud-desktop-client -y
+# sudo dnf install brave-browser -y
 
-sudo dnf install vlc -y
-sudo dnf install ffmpeg-free -y
-
-flatpak install flathub org.mozilla.Thunderbird
+# print_green "\n brave foi... \n" 
 
 
-#VsCode
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+# #Chrome
+# print_green "\n cHROME !! \n"
+# sudo dnf install -y fedora-workstation-repositories 
 
-dnf check-update -y
-sudo dnf install code -y
-sudo dnf install dotnet-sdk-8.0 -y
-sudo dnf install aspnetcore-runtime-8.0 -y
-sudo dnf install dotnet-sdk-6.0 -y
-sudo dnf install aspnetcore-runtime-6.0 -y
+# sudo dnf config-manager --set-enabled google-chrome -y
 
-sudo dnf install -y nodejs npm
-sudo npm install -g nvm
-sudo npm install -g n 
-sudo npm install -g n 
-sudo npm install -g @angular/cli  
+# sudo dnf install google-chrome-stable -y
 
-ng version 
-sudo yum install -y terminator
+# sudo dnf install gnome-tweaks -y
 
-sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
-sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+# sudo snap install bitwarden 
+# sudo snap install mailspring 
+# sudo snap install nextcloud-desktop-client 
+
+# sudo dnf install vlc -y
+# sudo dnf install ffmpeg-free -y
+
+# flatpak install flathub org.mozilla.Thunderbird
 
 
-print_green "\n install zsh...\n"
-curl -fsSL https://raw.githubusercontent.com/MozartFalcao/fed_post_scripts/develop/fedora_post_install/zsh-install.sh | sudo bash
+# #VsCode
+# sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+# echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-sudo dnf autoremove -y
+# dnf check-update -y
+# sudo dnf install code -y
+# sudo dnf install dotnet-sdk-8.0 -y
+# sudo dnf install aspnetcore-runtime-8.0 -y
+# sudo dnf install dotnet-sdk-6.0 -y
+# sudo dnf install aspnetcore-runtime-6.0 -y
+
+# sudo dnf install -y nodejs npm
+# sudo npm install -g nvm
+# sudo npm install -g n 
+# sudo npm install -g n 
+# sudo npm install -g @angular/cli  
+
+# ng version 
+# sudo yum install -y terminator
+
+# sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+# sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
 
 
-print_green "\n now some internal configs...\n"
+# print_green "\n install zsh...\n"
+# curl -fsSL https://raw.githubusercontent.com/MozartFalcao/fed_post_scripts/develop/fedora_post_install/zsh-install.sh | sudo bash
+
+# sudo dnf autoremove -y
 
 
-# Initialize virtualization
-# sudo sed -i 's/#unix_sock_group = "libvirt"/unix_sock_group = "libvirt"/g' /etc/libvirt/libvirtd.conf
-# sudo sed -i 's/#unix_sock_rw_perms = "0770"/unix_sock_rw_perms = "0770"/g' /etc/libvirt/libvirtd.conf
-# sudo systemctl enable libvirtd
-# sudo usermod -aG libvirt "$(whoami)"
+# print_green "\n now some internal configs...\n"
 
-# Cockpit is still missing some core functionality, but will switch when it is added.
-#sudo systemctl enable cockpit.socket --now
 
-# Harden the Kernel with Kicksecure's patches
-# Disables CD ROMs, FireWire, default writes, various kernel flags.
-sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/modprobe.d/30_security-misc.conf -o /etc/modprobe.d/30_security-misc.conf
-sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_security-misc.conf -o /etc/sysctl.d/30_security-misc.conf
-sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_silent-kernel-printk.conf -o /etc/sysctl.d/30_silent-kernel-printk.conf
+# # Initialize virtualization
+# # sudo sed -i 's/#unix_sock_group = "libvirt"/unix_sock_group = "libvirt"/g' /etc/libvirt/libvirtd.conf
+# # sudo sed -i 's/#unix_sock_rw_perms = "0770"/unix_sock_rw_perms = "0770"/g' /etc/libvirt/libvirtd.conf
+# # sudo systemctl enable libvirtd
+# # sudo usermod -aG libvirt "$(whoami)"
 
-# Enable Kicksecure CPU mitigations
-sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_cpu_mitigations.cfg -o /etc/grub.d/40_cpu_mitigations.cfg
-# Kicksecure's CPU distrust script
-sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_distrust_cpu.cfg -o /etc/grub.d/40_distrust_cpu.cfg
-# Enable Kicksecure's IOMMU patch (limits DMA)
-sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_enable_iommu.cfg -o /etc/grub.d/40_enable_iommu.cfg
+# # Cockpit is still missing some core functionality, but will switch when it is added.
+# #sudo systemctl enable cockpit.socket --now
 
-# Divested's brace patches
-# Sandbox the brace systemd permissions
-# If you have VPN issues: https://old.reddit.com/r/DivestOS/comments/12b4fk4/comment/jex4qt2/
-sudo mkdir -p /etc/systemd/system/NetworkManager.service.d
-sudo curl https://gitlab.com/divested/brace/-/raw/master/brace/usr/lib/systemd/system/NetworkManager.service.d/99-brace.conf -o /etc/systemd/system/NetworkManager.service.d/99-brace.conf
-sudo mkdir -p /etc/systemd/system/irqbalance.service.d
-sudo curl https://gitlab.com/divested/brace/-/raw/master/brace/usr/lib/systemd/system/irqbalance.service.d/99-brace.conf -o /etc/systemd/system/irqbalance.service.d/99-brace.conf
+# # Harden the Kernel with Kicksecure's patches
+# # Disables CD ROMs, FireWire, default writes, various kernel flags.
+# sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/modprobe.d/30_security-misc.conf -o /etc/modprobe.d/30_security-misc.conf
+# sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_security-misc.conf -o /etc/sysctl.d/30_security-misc.conf
+# sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/sysctl.d/30_silent-kernel-printk.conf -o /etc/sysctl.d/30_silent-kernel-printk.conf
 
-# GrapheneOS's ssh limits
-# caps the system usage of sshd
-sudo mkdir -p /etc/systemd/system/sshd.service.d
-sudo curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/systemd/system/sshd.service.d/local.conf -o /etc/systemd/system/sshd.service.d/local.conf
-# echo "GSSAPIAuthentication no" | sudo tee /etc/ssh/ssh_config.d/10-custom.conf
-# echo "VerifyHostKeyDNS yes" | sudo tee -a /etc/ssh/ssh_config.d/10-custom.conf
+# # Enable Kicksecure CPU mitigations
+# sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_cpu_mitigations.cfg -o /etc/grub.d/40_cpu_mitigations.cfg
+# # Kicksecure's CPU distrust script
+# sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_distrust_cpu.cfg -o /etc/grub.d/40_distrust_cpu.cfg
+# # Enable Kicksecure's IOMMU patch (limits DMA)
+# sudo curl https://raw.githubusercontent.com/Kicksecure/security-misc/master/etc/default/grub.d/40_enable_iommu.cfg -o /etc/grub.d/40_enable_iommu.cfg
 
-# NTS instead of NTP
-# NTS is a more secured version of NTP
-sudo curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.conf -o /etc/chrony.conf
+# # Divested's brace patches
+# # Sandbox the brace systemd permissions
+# # If you have VPN issues: https://old.reddit.com/r/DivestOS/comments/12b4fk4/comment/jex4qt2/
+# sudo mkdir -p /etc/systemd/system/NetworkManager.service.d
+# sudo curl https://gitlab.com/divested/brace/-/raw/master/brace/usr/lib/systemd/system/NetworkManager.service.d/99-brace.conf -o /etc/systemd/system/NetworkManager.service.d/99-brace.conf
+# sudo mkdir -p /etc/systemd/system/irqbalance.service.d
+# sudo curl https://gitlab.com/divested/brace/-/raw/master/brace/usr/lib/systemd/system/irqbalance.service.d/99-brace.conf -o /etc/systemd/system/irqbalance.service.d/99-brace.conf
 
-# Whonix Machine ID
-echo "b08dfa6083e7567a1921a715000001fb" | sudo tee /etc/machine-id
+# # GrapheneOS's ssh limits
+# # caps the system usage of sshd
+# sudo mkdir -p /etc/systemd/system/sshd.service.d
+# sudo curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/systemd/system/sshd.service.d/local.conf -o /etc/systemd/system/sshd.service.d/local.conf
+# # echo "GSSAPIAuthentication no" | sudo tee /etc/ssh/ssh_config.d/10-custom.conf
+# # echo "VerifyHostKeyDNS yes" | sudo tee -a /etc/ssh/ssh_config.d/10-custom.conf
 
-# Remove Firewalld's Default Rules
-sudo firewall-cmd --permanent --remove-port=1025-65535/udp
-sudo firewall-cmd --permanent --remove-port=1025-65535/tcp
-sudo firewall-cmd --permanent --remove-service=mdns
-sudo firewall-cmd --permanent --remove-service=ssh
-sudo firewall-cmd --permanent --remove-service=samba-client
-sudo firewall-cmd --reload
+# # NTS instead of NTP
+# # NTS is a more secured version of NTP
+# sudo curl https://raw.githubusercontent.com/GrapheneOS/infrastructure/main/chrony.conf -o /etc/chrony.conf
 
-#Randomize MAC address and disable static hostname. This could be used to track general network activity.
-sudo bash -c 'cat > /etc/NetworkManager/conf.d/00-macrandomize.conf' <<-'EOF'
-[main]
-hostname-mode=none
+# # Whonix Machine ID
+# echo "b08dfa6083e7567a1921a715000001fb" | sudo tee /etc/machine-id
 
-[device]
-wifi.scan-rand-mac-address=yes
+# # Remove Firewalld's Default Rules
+# sudo firewall-cmd --permanent --remove-port=1025-65535/udp
+# sudo firewall-cmd --permanent --remove-port=1025-65535/tcp
+# sudo firewall-cmd --permanent --remove-service=mdns
+# sudo firewall-cmd --permanent --remove-service=ssh
+# sudo firewall-cmd --permanent --remove-service=samba-client
+# sudo firewall-cmd --reload
 
-[connection]
-wifi.cloned-mac-address=random
-ethernet.cloned-mac-address=random
-EOF
+# #Randomize MAC address and disable static hostname. This could be used to track general network activity.
+# sudo bash -c 'cat > /etc/NetworkManager/conf.d/00-macrandomize.conf' <<-'EOF'
+# [main]
+# hostname-mode=none
 
-sudo systemctl restart NetworkManager
-sudo hostnamectl hostname "localhost"
+# [device]
+# wifi.scan-rand-mac-address=yes
 
-# Disable Bluetooth
-# or renable it!
-# case "$bluetooth" in
-# 	y|Y)
-# 		sudo sed -i 's,install bluetooth /bin/disabled-bluetooth-by-security-misc,#install bluetooth /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
-# 		sudo sed -i 's,install btusb /bin/disabled-bluetooth-by-security-misc,#install btusb /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
-# 		;;
-# 	*)
-# 		echo "Disabling Bluetooth..."
-# 		sudo systemctl disable bluetooth
-# esac
+# [connection]
+# wifi.cloned-mac-address=random
+# ethernet.cloned-mac-address=random
+# EOF
+
+# sudo systemctl restart NetworkManager
+# sudo hostnamectl hostname "localhost"
+
+# # Disable Bluetooth
+# # or renable it!
+# # case "$bluetooth" in
+# # 	y|Y)
+# # 		sudo sed -i 's,install bluetooth /bin/disabled-bluetooth-by-security-misc,#install bluetooth /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
+# # 		sudo sed -i 's,install btusb /bin/disabled-bluetooth-by-security-misc,#install btusb /bin/disabled-bluetooth-by-security-misc,g' /etc/modprobe.d/30_security-misc.conf
+# # 		;;
+# # 	*)
+# # 		echo "Disabling Bluetooth..."
+# # 		sudo systemctl disable bluetooth
+# # esac
  
-# Enable DNSSEC
-# causes severe network instability, but working on getting this up and running
-# sudo sed -i s/#DNSSEC=no/DNSSEC=yes/g /etc/systemd/resolved.conf
-# sudo systemctl restart systemd-resolved
+# # Enable DNSSEC
+# # causes severe network instability, but working on getting this up and running
+# # sudo sed -i s/#DNSSEC=no/DNSSEC=yes/g /etc/systemd/resolved.conf
+# # sudo systemctl restart systemd-resolved
 
-# Make the Home folder private
-# Privatizing the home folder creates problems with virt-manager
-# accessing ISOs from your home directory. Store images in /var/lib/libvirt/images
-chmod 700 /home/"$(whoami)"
-# is reset using:
-#chmod 755 /home/"$(whoami)"
-#
-# In Wine, Easy AntiCheat requires Wine to use ptrace as a standard user.
-# Kicksecure limits this to root, but the workaround in this file is not comprehensive.
-sudo sed -i 's,kernel.yama.ptrace_scope=2,#kernel.yama.ptrace_scope=2,g' /etc/sysctl.d/30_security-misc.conf
+# # Make the Home folder private
+# # Privatizing the home folder creates problems with virt-manager
+# # accessing ISOs from your home directory. Store images in /var/lib/libvirt/images
+# chmod 700 /home/"$(whoami)"
+# # is reset using:
+# #chmod 755 /home/"$(whoami)"
+# #
+# # In Wine, Easy AntiCheat requires Wine to use ptrace as a standard user.
+# # Kicksecure limits this to root, but the workaround in this file is not comprehensive.
+# sudo sed -i 's,kernel.yama.ptrace_scope=2,#kernel.yama.ptrace_scope=2,g' /etc/sysctl.d/30_security-misc.conf
 
 
 ########################
@@ -256,16 +256,16 @@ sudo sed -i 's,kernel.yama.ptrace_scope=2,#kernel.yama.ptrace_scope=2,g' /etc/sy
 ########################
 print_green "\nInstalling personal things\n"
 
-# cd "$HOME/Downloads" || return
-# wget https://github.com/dracula/gtk/archive/master.zip
+cd $HOME/Downloads || return
+wget https://github.com/dracula/gtk/archive/master.zip
 
-# mkdir "$HOME/.themes" || return
-# unzip master.zip -d "$HOME/.themes" 
+mkdir $HOME/.themes || return
+unzip master.zip -d $HOME/.themes
 
-# gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
-# gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula" || return
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula" || return
 
-# git clone https://github.com/bikass/kora.git "$HOME/.icons"
+git clone https://github.com/bikass/kora.git "$HOME/.icons"
 
 
 ##configure environment
@@ -273,16 +273,12 @@ print_green "\nInstalling personal things\n"
 # git config --global user.email mozart.falcao@outlook.com
 
 
-cd "$HOME" || return
+cd $HOME || return
 mkdir wks .temp .themes
-cd "wks" || return
+cd wks || return
 mkdir repos labs studies projects works scripts
-cd "repos" || return
-git clone https://github.com/MozartFalcao/scripts.git
-git clone https://github.com/MozartFalcao/fed_post_scripts.git
-git clone https://github.com/bikass/kora.git "$HOME"/.local/share/icons/
-
-cd "$HOME" || return
+cd repos || return
+cd $HOME || return
 
 sudo dnf upgrade -y
 sudo dnf autoremove -y
