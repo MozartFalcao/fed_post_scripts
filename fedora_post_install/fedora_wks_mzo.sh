@@ -57,12 +57,19 @@ sudo fwupdmgr update -y
 # gsettings set org.gnome.desktop.interface clock-show-seconds true
 # gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 
+
+print_green "\n acabou os updates....\n"
+
+
 # Setup Flathub beta and third party packages
 sudo fedora-third-party enable
 sudo fedora-third-party refresh
 flatpak remote-add --if-not-exists flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
 
 sudo dnf install -y flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+
 sudo dnf install -y snapd 
 sudo ln -s /var/lib/snapd/snap /snap
 sudo dnf install -y wget 
@@ -72,12 +79,7 @@ sudo dnf install -y wget
 # Install things I need, top is uncategorized
 echo "Iniciating all apps installation..."
 print_green "\n Iniciating all apps installation...\n"
-
-flatpak install -y flathub 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install flathub com.spotify.Client
-
-
+sudo dnf install lpf-spotify-client
 
 
 echo "flatpak foi agora os brabo começa..."
@@ -281,4 +283,4 @@ cd "$HOME" || return
 sudo dnf upgrade -y
 sudo dnf autoremove -y
 
-print "The configuration is now complete...."
+print_blue "The configuration is now complete...."
