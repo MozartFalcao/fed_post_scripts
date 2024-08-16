@@ -103,9 +103,17 @@ sudo dnf config-manager --set-enabled google-chrome -y
 
 sudo dnf install google-chrome-stable -y
 
-sudo snap install bitwarden -y
-
 sudo dnf install gnome-tweaks -y
+
+sudo snap install bitwarden -y
+sudo snap install mailspring -y
+sudo snap install nextcloud-desktop-client -y
+
+sudo dnf install vlc -y
+sudo dnf install ffmpeg-free -y
+
+flatpak install flathub org.mozilla.Thunderbird
+
 
 #VsCode
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -270,6 +278,7 @@ git clone https://github.com/bikass/kora.git "$HOME"/.local/share/icons/
 
 cd "$HOME" || return
 
-
+sudo dnf upgrade -y
+sudo dnf autoremove -y
 
 print "The configuration is now complete...."
